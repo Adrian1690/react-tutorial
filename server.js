@@ -15,6 +15,8 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var http = require('http');
+var engine = require('socket.io');
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -41,6 +43,26 @@ app.post('/comments.json', function(req, res) {
 });
 
 
-app.listen(app.get('port'), function() {
+
+/*app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
-});
+});*/
+
+// creamos el server
+let server = http.createServer(app).listen(app.get('port'), () =>{
+  console.log(`El servidor esta corriendo en el puerto ${app.get('port')}`);
+})
+
+const io = engine.listen(server);
+
+io.on('connection', (socket) => {
+    socket.on('comment', (coment) => {
+        io.emit('comment', coment);
+    })
+})
+
+
+
+
+
+
