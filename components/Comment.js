@@ -10,7 +10,7 @@ var Comment = React.createClass({
         <h2 className="commentAuthor">
           {this.props.author}
         </h2>
-        {rawMarkup}
+        {this.props.children.toString()}
       </div>
     );
   }

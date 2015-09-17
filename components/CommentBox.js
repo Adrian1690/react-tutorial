@@ -41,9 +41,9 @@ var CommentBox = React.createClass({
     return {data: []};
   },
   componentWillMount: function (){
-      this.socket = io('http://localhost:3000');
+      this.socket = io('http://localhost:3002');
       this.socket.on('comment', (comment) =>{
-          //console.log('llego un nuevo coment');
+          console.log('llego un nuevo coment');
           var comments = this.state.data;
           var newComments = comments.concat([comment]);
           this.setState({data: newComments});
